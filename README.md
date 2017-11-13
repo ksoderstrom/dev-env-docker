@@ -7,7 +7,7 @@ This is my personal dev environment. Heavily based on [dpeterson/dev-container-*
 Build the docker-compose project with:
 
 ```
-COMPOSE_PROJECT_NAME=`whoami` DOCKER_UID=$UID DOCKER_GID=$GID docker-compose build
+COMPOSE_PROJECT_NAME=`whoami` DOCKER_UID=$(id -u) DOCKER_GID=$(id -g) docker-compose build
 ```
 
 ## Starting
