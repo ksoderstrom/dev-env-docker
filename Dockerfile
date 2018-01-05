@@ -36,7 +36,8 @@ RUN apt-get update && apt-get upgrade -y && \
       sudo \
       whois \
       dnsutils \
-      traceroute
+      traceroute \
+      apt-transport-https
 
 # stuff usually needed for ruby dev
 RUN apt-get install -y \
@@ -77,6 +78,11 @@ RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
     && locale-gen
 ENV LANG en_US.utf8
 
+# setup heroku-cli
+RUN echo "deb https://cli-assets.heroku.com/branches/stable/apt ./" > /etc/apt/sources.list.d/heroku.list
+RUN wget -qO- https://cli-assets.heroku.com/apt/release.key | apt-key add -
+RUN apt-get update && apt-get install -y heroku
+
 # setup user
 ARG UID=1000
 ARG GID=1000
@@ -91,8 +97,10 @@ USER dev
 RUN git clone https://github.com/rbenv/rbenv.git /home/dev/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
 ENV PATH /home/dev/.rbenv/bin:$PATH
+RUN rbenv install 2.3.3
 RUN rbenv install 2.4.2
-RUN rbenv global 2.4.2
+RUN rbenv install 2.5.0
+RUN rbenv global 2.5.0
 
 # clone dotfiles
 RUN git clone https://github.com/ksoderstrom/dotfiles.git /home/dev/.dotfiles
