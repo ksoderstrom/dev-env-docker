@@ -19,6 +19,7 @@ services:
       - "34000:4000"
       - "35000:5000"
       - "34567:4567"
+      - "31125:31125/udp"
     depends_on:
       - postgres
   postgres:
