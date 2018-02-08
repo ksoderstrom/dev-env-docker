@@ -98,6 +98,7 @@ RUN git clone https://github.com/rbenv/rbenv.git /home/dev/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
 ENV PATH /home/dev/.rbenv/bin:$PATH
 RUN rbenv install 2.3.3
+RUN rbenv install 2.3.4
 RUN rbenv install 2.4.2
 RUN rbenv install 2.5.0
 RUN rbenv global 2.5.0
