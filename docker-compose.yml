@@ -23,7 +23,8 @@ services:
     depends_on:
       - postgres
   postgres:
-    image: postgres:9.4-alpine
+    image: postgres:9.6-alpine
+    command: postgres -c shared_buffers=2GB -c effective_cache_size=4GB -c synchronous_commit=off
     environment:
       POSTGRES_USER: dev
       POSTGRES_PASSWORD:
