@@ -1,6 +1,6 @@
 # development machine
 #
-FROM ubuntu:17.04
+FROM ubuntu:17.10
 
 # Start by changing the apt output, as stolen from Discourse's Dockerfiles.
 RUN echo "debconf debconf/frontend select Teletype" | debconf-set-selections
@@ -13,6 +13,7 @@ RUN add-apt-repository ppa:neovim-ppa/unstable
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
       build-essential \
+      gcc-6 \
       locales \
       curl \
       git  \
@@ -97,11 +98,11 @@ USER dev
 RUN git clone https://github.com/rbenv/rbenv.git /home/dev/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
 ENV PATH /home/dev/.rbenv/bin:$PATH
-RUN rbenv install 2.3.3
-RUN rbenv install 2.3.4
-RUN rbenv install 2.4.2
-RUN rbenv install 2.5.0
-RUN rbenv global 2.5.0
+RUN CC=/usr/bin/gcc-6 rbenv install 2.3.3
+RUN CC=/usr/bin/gcc-6 rbenv install 2.3.4
+RUN CC=/usr/bin/gcc-6 rbenv install 2.4.2
+RUN CC=/usr/bin/gcc-6 rbenv install 2.5.0
+RUN CC=/usr/bin/gcc-6 rbenv global 2.5.0
 
 # clone dotfiles
 RUN git clone https://github.com/ksoderstrom/dotfiles.git /home/dev/.dotfiles
