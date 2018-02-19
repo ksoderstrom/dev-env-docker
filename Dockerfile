@@ -38,7 +38,8 @@ RUN apt-get update && apt-get upgrade -y && \
       whois \
       dnsutils \
       traceroute \
-      apt-transport-https
+      apt-transport-https \
+      man-db
 
 # stuff usually needed for ruby dev
 RUN apt-get install -y \
