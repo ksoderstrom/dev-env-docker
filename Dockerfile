@@ -7,7 +7,7 @@ RUN echo "debconf debconf/frontend select Teletype" | debconf-set-selections
 
 RUN apt-get update && apt-get install -y software-properties-common ca-certificates
 RUN add-apt-repository ppa:martin-frost/thoughtbot-rcm
-RUN add-apt-repository ppa:neovim-ppa/unstable
+RUN add-apt-repository ppa:neovim-ppa/stable
 
 # common packages
 RUN apt-get update && apt-get upgrade -y && \
