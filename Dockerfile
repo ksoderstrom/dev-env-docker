@@ -52,7 +52,8 @@ RUN apt-get install -y \
   libxslt-dev \
   libffi-dev \
   libsqlite3-dev \
-  libpq-dev
+  libpq-dev \
+  libstdc++-6-dev
 
 # install tmux
 ENV tmux_version 2.7
