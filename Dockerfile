@@ -39,7 +39,8 @@ RUN apt-get update && apt-get upgrade -y && \
       dnsutils \
       traceroute \
       apt-transport-https \
-      man-db
+      man-db \
+      zip
 
 # stuff usually needed for ruby dev
 RUN apt-get install -y \
@@ -54,7 +55,7 @@ RUN apt-get install -y \
   libpq-dev
 
 # install tmux
-ENV tmux_version 2.6
+ENV tmux_version 2.7
 WORKDIR /usr/local/src
 RUN wget https://github.com/tmux/tmux/releases/download/${tmux_version}/tmux-${tmux_version}.tar.gz
 RUN tar xzvf tmux-${tmux_version}.tar.gz
@@ -103,6 +104,7 @@ RUN CC=/usr/bin/gcc-6 rbenv install 2.3.3
 RUN CC=/usr/bin/gcc-6 rbenv install 2.3.4
 RUN CC=/usr/bin/gcc-6 rbenv install 2.4.2
 RUN CC=/usr/bin/gcc-6 rbenv install 2.5.0
+RUN CC=/usr/bin/gcc-6 rbenv install 2.5.1
 RUN CC=/usr/bin/gcc-6 rbenv global 2.5.0
 
 # clone dotfiles
