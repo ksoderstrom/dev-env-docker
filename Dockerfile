@@ -1,6 +1,6 @@
 # development machine
 #
-FROM ubuntu:17.10
+FROM ubuntu:18.04
 
 # Start by changing the apt output, as stolen from Discourse's Dockerfiles.
 RUN echo "debconf debconf/frontend select Teletype" | debconf-set-selections
@@ -45,7 +45,7 @@ RUN apt-get update && apt-get upgrade -y && \
 # stuff usually needed for ruby dev
 RUN apt-get install -y \
   zlib1g-dev \
-  libssl-dev \
+  libssl1.0-dev \
   libreadline-dev \
   libyaml-dev \
   libxml2-dev \
