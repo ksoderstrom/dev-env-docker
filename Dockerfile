@@ -116,8 +116,9 @@ RUN rcup
 # install n
 RUN curl -L https://git.io/n-install | bash -s -- -y
 
-# install zim
-RUN git clone --recursive https://github.com/Eriner/zim.git /home/dev/.zim
+# install prezto
+RUN git clone --recurse-submodules https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+RUN git clone --recurse-submodules https://github.com/belak/prezto-contrib "${ZDOTDIR:-$HOME}/.zprezto/contrib"
 
 # install vim plugins
 RUN curl -fLo /home/dev/.local/share/nvim/site/autoload/plug.vim --create-dirs \
