@@ -29,7 +29,6 @@ RUN apt-get update && apt-get upgrade -y && \
       zsh \
       rcm \
       neovim \
-      python3-neovim \
       ctags \
       openssh-client \
       direnv \
@@ -40,7 +39,11 @@ RUN apt-get update && apt-get upgrade -y && \
       traceroute \
       apt-transport-https \
       man-db \
-      zip
+      zip \
+      python-dev \
+      python-pip \
+      python3-dev \
+      python3-pip
 
 # stuff usually needed for ruby dev
 RUN apt-get install -y \
@@ -67,7 +70,12 @@ RUN make install
 RUN rm -rf /usr/local/src/tmux*
 
 # use nvim instead of vim
-RUN ln -s /usr/bin/nvim /usr/local/bin/vim
+RUN sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60 && \
+    sudo update-alternatives --config vi && \
+    sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60 && \
+    sudo update-alternatives --config vim && \
+    sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60 && \
+    sudo update-alternatives --config editor
 
 # install ssh
 RUN apt-get install -y openssh-server &&\
@@ -96,6 +104,8 @@ RUN useradd dev -u $UID -g $GID -d /home/dev -m -s /bin/zsh &&\
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER dev
+
+RUN pip install neovim && pip3 install neovim
 
 # setup rbenv
 RUN git clone https://github.com/rbenv/rbenv.git /home/dev/.rbenv
