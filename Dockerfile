@@ -43,7 +43,8 @@ RUN apt-get update && apt-get upgrade -y && \
       python-dev \
       python-pip \
       python3-dev \
-      python3-pip
+      python3-pip \
+      htop
 
 # stuff usually needed for ruby dev
 RUN apt-get install -y \
