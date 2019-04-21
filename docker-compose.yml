@@ -9,7 +9,6 @@ services:
     hostname: devbox
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
       - /home/ks/.ssh:/home/dev/.ssh
       - /home/ks/.netrc:/home/dev/.netrc
       - code:/home/dev/code

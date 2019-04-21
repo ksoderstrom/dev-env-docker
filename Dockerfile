@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y software-properties-common ca-certifica
 RUN add-apt-repository ppa:martin-frost/thoughtbot-rcm
 RUN add-apt-repository ppa:neovim-ppa/stable
 
+
 # common packages
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
@@ -44,7 +45,11 @@ RUN apt-get update && apt-get upgrade -y && \
       python-pip \
       python3-dev \
       python3-pip \
-      htop
+      htop \
+      tzdata
+
+# timezone
+RUN echo Europe/Paris > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
 
 # stuff usually needed for ruby dev
 RUN apt-get install -y \
@@ -112,12 +117,11 @@ RUN pip install neovim && pip3 install neovim
 RUN git clone https://github.com/rbenv/rbenv.git /home/dev/.rbenv
 RUN git clone https://github.com/rbenv/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
 ENV PATH /home/dev/.rbenv/bin:$PATH
-RUN CC=/usr/bin/gcc-6 rbenv install 2.3.3
-RUN CC=/usr/bin/gcc-6 rbenv install 2.3.4
-RUN CC=/usr/bin/gcc-6 rbenv install 2.4.2
-RUN CC=/usr/bin/gcc-6 rbenv install 2.5.0
-RUN CC=/usr/bin/gcc-6 rbenv install 2.5.1
-RUN CC=/usr/bin/gcc-6 rbenv global 2.5.0
+RUN CC=/usr/bin/gcc-6 rbenv install 2.3.8
+RUN CC=/usr/bin/gcc-6 rbenv install 2.4.5
+RUN CC=/usr/bin/gcc-6 rbenv install 2.5.3
+RUN CC=/usr/bin/gcc-6 rbenv install 2.6.0
+RUN CC=/usr/bin/gcc-6 rbenv global 2.6.0
 
 # clone dotfiles
 RUN git clone https://github.com/ksoderstrom/dotfiles.git /home/dev/.dotfiles
@@ -127,9 +131,8 @@ RUN rcup
 # install n
 RUN curl -L https://git.io/n-install | bash -s -- -y
 
-# install prezto
-RUN git clone --recurse-submodules https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-RUN git clone --recurse-submodules https://github.com/belak/prezto-contrib "${ZDOTDIR:-$HOME}/.zprezto/contrib"
+# install zim
+RUN git clone --recursive https://github.com/Eriner/zim.git /home/dev/.zim
 
 # install vim plugins
 RUN curl -fLo /home/dev/.local/share/nvim/site/autoload/plug.vim --create-dirs \
